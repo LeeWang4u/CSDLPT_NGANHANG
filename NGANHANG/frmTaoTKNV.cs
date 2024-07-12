@@ -106,5 +106,10 @@ namespace NGANHANG
         {
             Close();
         }
+
+        private void txtMaNV_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

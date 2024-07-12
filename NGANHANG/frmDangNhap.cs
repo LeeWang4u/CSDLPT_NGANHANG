@@ -81,6 +81,9 @@ namespace NGANHANG
 
         private void frmDangNhap_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dS.ChiNhanh' table. You can move, or remove it, as needed.
+            this.chiNhanhTableAdapter.Fill(this.dS.ChiNhanh);
+            txbMatKhau.PasswordChar = '*';
             if (KetNoi_CSDLGOC() == 0) return; // nếu hàm KetNoi_CSDLGOC() == 0 -> đăng nhập thất bại
             LayDSPM("SELECT * FROM Get_Subscribes");  // Lấy ra danh sách các phân mảnh từ Get_Subscribles.
             cmbChiNhanh.SelectedIndex = 1; cmbChiNhanh.SelectedIndex = 0;
@@ -101,65 +104,88 @@ namespace NGANHANG
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            Form frm = this.CheckExists(typeof(frmMain));
-            if (txbTaiKhoan.Text.Trim() == "" || txbMatKhau.Text.Trim() == "")
-            {    // hàm Trim để xóa khoảng trắng 2 bên.
-                MessageBox.Show("Login name và mật mā không được trống", "", MessageBoxButtons.OK);
-                return;
+            String khachHang = "";
+            if (cbKhachHang.Checked)
+            {
+                khachHang = "KHACHHANG";
             }
-            Program.mlogin = txbTaiKhoan.Text; Program.password = txbMatKhau.Text;
-            if (Program.KetNoi() == 0) return;
+            else
+            {
+                khachHang = "HELLO";
+            }
+                Form frm = this.CheckExists(typeof(frmMain));
+                if (txbTaiKhoan.Text.Trim() == "" || txbMatKhau.Text.Trim() == "")
+                {    // hàm Trim để xóa khoảng trắng 2 bên.
+                    MessageBox.Show("Login name và mật mā không được trống", "", MessageBoxButtons.OK);
+                    return;
+                }
+                Program.mlogin = txbTaiKhoan.Text; Program.password = txbMatKhau.Text;
+                if (Program.KetNoi() == 0) return;
 
-            /*Debug.WriteLine(Program.mlogin);
-            Debug.WriteLine(Program.password);*/
-            string strLenh = "EXEC SP_Lay_Thong_Tin_NV_Tu_Login '" + Program.mlogin + "'";
+                /*Debug.WriteLine(Program.mlogin);
+                Debug.WriteLine(Program.password);*/
+                string strLenh = "EXEC SP_Lay_Thong_Tin_Tu_Login '" + Program.mlogin + "', '" + khachHang + "'";
             //Debug.WriteLine(strLenh);
             Program.myReader = Program.ExecSqlDataReader(strLenh);
-            if (Program.myReader == null || !Program.myReader.HasRows)
-            {
-                MessageBox.Show("Bạn không có quyền truy cập!", "", MessageBoxButtons.OK);
-                return;   //nếu bằng null có nghĩa là không lấy được thông tin nhân viên -> kết thúc.  
-            }
-            Program.myReader.Read();    // Khi thực thi xong SP_Lay_Thong... thì nó chỉ trả ra 1 hàng nên ta chỉ cần Read() 1 lần. Nếu nhiều hàng thì ta phải tạo ra một vòng lặp và lặp cho đến khi Read()==null để lấy ra.
+                if (Program.myReader == null || !Program.myReader.HasRows)
+                {
+                    MessageBox.Show("Bạn không có quyền truy cập!", "", MessageBoxButtons.OK);
+                    return;   //nếu bằng null có nghĩa là không lấy được thông tin nhân viên -> kết thúc.  
+                }
+                Program.myReader.Read();    // Khi thực thi xong SP_Lay_Thong... thì nó chỉ trả ra 1 hàng nên ta chỉ cần Read() 1 lần. Nếu nhiều hàng thì ta phải tạo ra một vòng lặp và lặp cho đến khi Read()==null để lấy ra.
 
-            Program.username = Program.myReader.GetString(0); // Lay user name      //GetString(0) là cột đầu tiên chứa MANV.
-            Debug.WriteLine("");
+                Program.username = Program.myReader.GetString(0); // Lay user name      //GetString(0) là cột đầu tiên chứa MANV.
+                Debug.WriteLine("");
+
+                if (Convert.IsDBNull(Program.username) )
+                {
+                    Console.WriteLine(Program.username);
+                    MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\n Bạn xem lại username, password", "", MessageBoxButtons.OK);
+                    return;
+                }
+
+                // Setup DbConnection
+                DbConnection.SetDefaultConnectionString($"Data Source={Program.servername};Initial Catalog={Program.database};User ID={Program.mlogin};password={Program.password}");
+
+                Program.mChinhanh = cmbChiNhanh.SelectedIndex;  //Nếu đăng nhập thành công thì ta sẽ giữ lại thông tin vừa đăng nhập như chi nhánh nào.
+                Program.mloginDN = Program.mlogin;              //tài khoản đăng nhập thành công.   -> sẽ còn dùng cho những form sau này.
+                Program.passwordDN = Program.password;          //mật khẩu đăng nhập thành công.
+                System.Console.WriteLine(Program.myReader.GetString(2));
+                Program.mHoten = Program.myReader.GetString(1); //GetString(1) chứa HOTEN
+                Program.mGroup = Program.myReader.GetString(2); //GetString(2) chứa NHOM
+                Program.myReader.Close();
+                Program.conn.Close();
+                // MessageBox.Show("Siuuuuuu");
+                Program.frmChinh.MaNV.Text = "Mã NV = " + Program.username;
+                Program.frmChinh.HoTen.Text = "Họ tên = " + Program.mHoten;
+                Program.frmChinh.Nhom.Text = "Nhóm = " + Program.mGroup;
+                //this.Visible = false;
+                this.Hide();
+                // Program.frmChinh.HienThiMenu();
+                // this.Close();
+                frmMain form = new frmMain();
+                form.ShowDialog();
+                //    Program.frmChinh.ShowDialog();
+                Close();
             
-            if (Convert.IsDBNull(Program.username))
-            {Console.WriteLine(Program.username);
-                MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\n Bạn xem lại username, password", "", MessageBoxButtons.OK);
-                return;
-            }
-
-            // Setup DbConnection
-            DbConnection.SetDefaultConnectionString($"Data Source={Program.servername};Initial Catalog={Program.database};User ID={Program.mlogin};password={Program.password}");
-
-            Program.mChinhanh = cmbChiNhanh.SelectedIndex;  //Nếu đăng nhập thành công thì ta sẽ giữ lại thông tin vừa đăng nhập như chi nhánh nào.
-            Program.mloginDN = Program.mlogin;              //tài khoản đăng nhập thành công.   -> sẽ còn dùng cho những form sau này.
-            Program.passwordDN = Program.password;          //mật khẩu đăng nhập thành công.
-
-            Program.mHoten = Program.myReader.GetString(1); //GetString(1) chứa HOTEN
-            Program.mGroup = Program.myReader.GetString(2); //GetString(2) chứa NHOM
-            Program.myReader.Close();
-            Program.conn.Close();
-           // MessageBox.Show("Siuuuuuu");
-            Program.frmChinh.MaNV.Text = "Mã NV = " + Program.username;
-            Program.frmChinh.HoTen.Text = "Họ tên = " + Program.mHoten;
-            Program.frmChinh.Nhom.Text = "Nhóm = " + Program.mGroup;
-            //this.Visible = false;
-            this.Hide();
-            // Program.frmChinh.HienThiMenu();
-            // this.Close();
-            frmMain form = new frmMain();
-            form.ShowDialog();
-           //    Program.frmChinh.ShowDialog();
-            Close();
-           
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cbKhachHang_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chiNhanhBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.chiNhanhBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.dS);
+
         }
     }
 }

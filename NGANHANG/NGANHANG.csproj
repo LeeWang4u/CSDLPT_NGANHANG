@@ -33,15 +33,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v19.2" />
+    <Reference Include="DevExpress.Charts.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v19.2" />
+    <Reference Include="DevExpress.DataAccess.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v19.2.Core" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v19.2.Export, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v19.2" />
+    <Reference Include="DevExpress.Utils.v19.2.UI, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v19.2" />
     <Reference Include="DevExpress.Sparkline.v19.2.Core" />
+    <Reference Include="DevExpress.XtraCharts.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v19.2" />
+    <Reference Include="DevExpress.XtraGauges.v19.2.Core, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v19.2, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v19.2.Extensions, Version=19.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +68,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DS.cs">
+      <DependentUpon>DS.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,11 +100,23 @@
     <Compile Include="frmGiaoDich.Designer.cs">
       <DependentUpon>frmGiaoDich.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmKH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmKH.designer.cs">
+      <DependentUpon>frmKH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMoTK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMoTK.Designer.cs">
+      <DependentUpon>frmMoTK.cs</DependentUpon>
     </Compile>
     <Compile Include="frmNV.cs">
       <SubType>Form</SubType>
@@ -95,15 +124,65 @@
     <Compile Include="frmNV.Designer.cs">
       <DependentUpon>frmNV.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTaoLoginKH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaoLoginKH.Designer.cs">
+      <DependentUpon>frmTaoLoginKH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTaoTKNV.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTaoTKNV.Designer.cs">
       <DependentUpon>frmTaoTKNV.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frpt_LietKeKhachHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frpt_LietKeKhachHang.Designer.cs">
+      <DependentUpon>Frpt_LietKeKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frpt_LietKeTaiKhoan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frpt_LietKeTaiKhoan.Designer.cs">
+      <DependentUpon>Frpt_LietKeTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frpt_SaoKeTaiKhoanNganHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frpt_SaoKeTaiKhoanNganHang.designer.cs">
+      <DependentUpon>Frpt_SaoKeTaiKhoanNganHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="Lib\DbConnection.cs" />
+    <Compile Include="NGANHANGDataSet.cs">
+      <DependentUpon>NGANHANGDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="NGANHANGDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NGANHANGDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="xrpt_LietKeKhachHang.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="xrpt_LietKeKhachHang.Designer.cs">
+      <DependentUpon>xrpt_LietKeKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xrpt_LietKeTaiKhoan.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="xrpt_LietKeTaiKhoan.Designer.cs">
+      <DependentUpon>xrpt_LietKeTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="xrpt_SaoKeTaiKhoanNganHang.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="xrpt_SaoKeTaiKhoanNganHang.Designer.cs">
+      <DependentUpon>xrpt_SaoKeTaiKhoanNganHang.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmCCN.resx">
       <DependentUpon>frmCCN.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,14 +195,32 @@
     <EmbeddedResource Include="frmGiaoDich.resx">
       <DependentUpon>frmGiaoDich.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmKH.resx">
+      <DependentUpon>frmKH.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMoTK.resx">
+      <DependentUpon>frmMoTK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNV.resx">
       <DependentUpon>frmNV.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmTaoLoginKH.resx">
+      <DependentUpon>frmTaoLoginKH.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmTaoTKNV.resx">
       <DependentUpon>frmTaoTKNV.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frpt_LietKeKhachHang.resx">
+      <DependentUpon>Frpt_LietKeKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frpt_LietKeTaiKhoan.resx">
+      <DependentUpon>Frpt_LietKeTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frpt_SaoKeTaiKhoanNganHang.resx">
+      <DependentUpon>Frpt_SaoKeTaiKhoanNganHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -135,6 +232,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="xrpt_LietKeKhachHang.resx">
+      <DependentUpon>xrpt_LietKeKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xrpt_LietKeTaiKhoan.resx">
+      <DependentUpon>xrpt_LietKeTaiKhoan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xrpt_SaoKeTaiKhoanNganHang.resx">
+      <DependentUpon>xrpt_SaoKeTaiKhoanNganHang.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="App.config" />
     <None Include="DS.xsc">
       <DependentUpon>DS.xsd</DependentUpon>
@@ -146,6 +252,17 @@
     </None>
     <None Include="DS.xss">
       <DependentUpon>DS.xsd</DependentUpon>
+    </None>
+    <None Include="NGANHANGDataSet.xsc">
+      <DependentUpon>NGANHANGDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="NGANHANGDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NGANHANGDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="NGANHANGDataSet.xss">
+      <DependentUpon>NGANHANGDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -19,6 +19,7 @@ namespace NGANHANG
         long soDuGoc;
         long soDuChuyen;
         long soDuGR;
+        string stk = "";
         private SqlDataReader reader;
 
   
@@ -58,57 +59,6 @@ namespace NGANHANG
 
 
 
-    /*
-    static string[] ones = { "", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
-    static string[] teens = { "", "mười", "mười một", "mười hai", "mười ba", "mười bốn", "mười lăm", "mười sáu", "mười bảy", "mười tám", "mười chín" };
-    static string[] tens = { "", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi" };
-    static string[] thousands = { "", "nghìn", "triệu", "tỷ" };
-
-    static string ConvertNumberToWords(int number)
-    {
-        if (number == 0)
-            return "không";
-
-        string words = "";
-
-        for (int i = 0; number > 0; i++)
-        {
-            if (number % 1000 != 0)
-                words = $"{ConvertThreeDigitNumberToWords(number % 1000)} {thousands[i]} {words}";
-            number /= 1000;
-        }
-
-        return words.Trim();
-    }
-
-    static string ConvertThreeDigitNumberToWords(int number)
-    {
-        string word = "";
-
-        if (number >= 100)
-        {
-            word += ones[number / 100] + " trăm ";
-            number %= 100;
-        }
-
-        if (number >= 20)
-        {
-            word += tens[number / 10] + " ";
-            number %= 10;
-        }
-
-        if (number >= 10)
-        {
-            word += teens[number - 10] + " ";
-            number = 0;
-        }
-
-        if (number > 0)
-            word += ones[number] + " ";
-
-        return word.Trim();
-    } 
-    */
     public frmGiaoDich()
         {
             InitializeComponent();
@@ -145,7 +95,12 @@ namespace NGANHANG
         {
             reader = Program.ExecSqlDataReader($"EXEC SP_KiemTraSTK '{txbSTK.Text.Trim()}'");
             if (reader == null)
+            {
+                panelControl2.Enabled = false;
+                panelControl3.Enabled = false;
                 return;
+            }
+                
             string hoTen  ="";
             string soDu = "";
             while (reader.Read())
@@ -180,6 +135,8 @@ namespace NGANHANG
 
             String result = NumberToWords(soDuGoc);
             txtThanhChuGoc.Text = "Thành Chữ: " + result + " đồng.";
+
+            stk = txbSTK.Text.Trim();
 
             /*reader = Program.ExecSqlDataReader($"EXEC SP_Num2Text '{soDuLong}'");
             if (reader == null)
@@ -236,7 +193,7 @@ namespace NGANHANG
 
             loaiGD = "GT";
 
-            string strLenh = "EXEC SP_GUIRUT '" + txbSTK.Text + "','" + txtSoTien.Text + "','" + loaiGD + "','" + Program.username + "'";
+            string strLenh = "EXEC SP_GUIRUT '" + stk + "','" + txtSoTien.Text + "','" + loaiGD + "','" + Program.username + "'";
             //Debug.WriteLine(strLenh);
             check = Program.ExecSqlNonQuery(strLenh);
 
@@ -268,7 +225,7 @@ namespace NGANHANG
 
             loaiGD = "RT";
 
-            string strLenh = "EXEC SP_GUIRUT '" + txbSTK.Text + "','" + txtSoTien.Text + "','" + loaiGD + "','" + Program.username + "'";
+            string strLenh = "EXEC SP_GUIRUT '" + stk + "','" + txtSoTien.Text + "','" + loaiGD + "','" + Program.username + "'";
             //Debug.WriteLine(strLenh);
             check = Program.ExecSqlNonQuery(strLenh);
 
@@ -285,7 +242,7 @@ namespace NGANHANG
                 return;
             }
             
-            if (txbSTK.Text.Trim() == txtSTKNhan.Text.Trim())
+            if (stk == txtSTKNhan.Text.Trim())
             {
                 MessageBox.Show("Số tài khoản chuyển và số tài khoản nhận không được trùng nhau!!", "", MessageBoxButtons.OK);
                 return;
@@ -313,7 +270,7 @@ namespace NGANHANG
                 return;
             }
 
-            string strLenh = "EXEC SP_CHUYENTIEN '" + txbSTK.Text + "','" + txtSTKNhan.Text + "','" + txtSoTienChuyen.Text + "','" + Program.username + "'";
+            string strLenh = "EXEC SP_CHUYENTIEN '" + stk + "','" + txtSTKNhan.Text + "','" + txtSoTienChuyen.Text + "','" + Program.username + "'";
             //Debug.WriteLine(strLenh);
             check = Program.ExecSqlNonQuery(strLenh);
             if (check == 0) MessageBox.Show("Giao dịch thành công!!!", "", MessageBoxButtons.OK);
@@ -362,6 +319,10 @@ namespace NGANHANG
 
         private void txtSoTienChuyen_Leave(object sender, EventArgs e)
         {
+            if (String.IsNullOrWhiteSpace(txtSoTienChuyen.Text))
+            {
+                return;
+            }
             soDuChuyen = long.Parse(txtSoTienChuyen.Text.Trim().ToString());
             String result = NumberToWords(soDuChuyen);
             txtThanhChuChuyen.Text = "Thành Chữ: " + result + " đồng.";
@@ -377,6 +338,10 @@ namespace NGANHANG
 
         private void txtSoTien_Leave(object sender, EventArgs e)
         {
+            if (String.IsNullOrWhiteSpace(txtSoTien.Text))
+            {
+                return;
+            }
             long soDuGR = long.Parse(txtSoTien.Text.Trim().ToString());
             String result = NumberToWords(soDuGR);
             txtThanhChuGR.Text = "Thành Chữ: " + result + " đồng.";

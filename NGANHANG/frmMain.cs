@@ -42,6 +42,11 @@ namespace NGANHANG
 
         private void btnNhanVien_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            if ( Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Form frm = this.CheckExists(typeof(frmNV));
             if (frm != null) frm.Activate();
             else
@@ -54,6 +59,11 @@ namespace NGANHANG
 
         private void btnGuiRutTien_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            if (Program.mGroup == "NGANHANG"  || Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Form frm = this.CheckExists(typeof(frmGiaoDich));
             if (frm != null) frm.Activate();
             else
@@ -66,6 +76,11 @@ namespace NGANHANG
 
         private void btnTaoTKNV_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            if (Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Form frm = this.CheckExists(typeof(frmTaoTKNV));
             if (frm != null) frm.Activate();
             else
@@ -80,7 +95,7 @@ namespace NGANHANG
         private void barButtonItem1_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             //this.Hide();
-          
+
             try
             {
                 Program.servername = "";
@@ -135,6 +150,102 @@ namespace NGANHANG
         private void btnDangNhap_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
 
+        }
+        private void btnKhachHang_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Form frm = this.CheckExists(typeof(frmKH));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmKH f = new frmKH();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnMoTK_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Form frm = this.CheckExists(typeof(frmMoTK));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmMoTK f = new frmMoTK();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnTaoLoginKH_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Form frm = this.CheckExists(typeof(frmTaoLoginKH));
+            if (frm != null) frm.Activate();
+            else
+            {
+                frmTaoLoginKH f = new frmTaoLoginKH();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void barButtonItem2_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(Frpt_SaoKeTaiKhoanNganHang));
+            if (frm != null) frm.Activate();
+            else
+            {
+                Frpt_SaoKeTaiKhoanNganHang f = new Frpt_SaoKeTaiKhoanNganHang();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void barButtonItem3_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Form frm = this.CheckExists(typeof(Frpt_LietKeTaiKhoan));
+            if (frm != null) frm.Activate();
+            else
+            {
+                Frpt_LietKeTaiKhoan f = new Frpt_LietKeTaiKhoan();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void barButtonItem4_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (Program.mGroup == "KHACHHANG")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào form này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            Form frm = this.CheckExists(typeof(Frpt_LietKeKhachHang));
+            if (frm != null) frm.Activate();
+            else
+            {
+                Frpt_LietKeKhachHang f = new Frpt_LietKeKhachHang();
+                f.MdiParent = this;
+                f.Show();
+            }
         }
     }
 }

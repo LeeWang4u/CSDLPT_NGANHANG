@@ -138,6 +138,7 @@ namespace NGANHANG
             this.txtMaNV.Properties.Appearance.Options.UseFont = true;
             this.txtMaNV.Size = new System.Drawing.Size(125, 34);
             this.txtMaNV.TabIndex = 1;
+            this.txtMaNV.EditValueChanged += new System.EventHandler(this.txtMaNV_EditValueChanged);
             // 
             // nhanVienBindingSource
             // 

@@ -1,5 +1,5 @@
-Cơ Sở Dữ Liệu Phân Tán
-Đề tài: Ngân Hàng
+# Cơ Sở Dữ Liệu Phân Tán
+## Đề tài: Ngân Hàng
 Yêu cầu đê tài:
 A. Cập nhật:
 
@@ -31,3 +31,28 @@ Chương trình có 3 nhóm : NganHang ,  ChiNhanh, KhachHang
 -  Nếu login thuộc nhóm ChiNhanh thì ta chỉ cho phép toàn quyền làm việc trên chi nhánh đã đăng nhập. Login nhóm này được tạo tài khoản mới cùng nhóm.
 -  Nếu login thuộc nhóm KhachHang thì ta chỉ cho phép xem Sao kê tài khoản của chính mình. Login nhóm này không được tạo tài khoản
   Chương trình cho phép tạo các login password và cho login này làm việc với quyền hạn gì. Căn cứ vào quyền này khi user login vào hệ thống, ta sẽ biết được người đó làm việc với phân tán nào hay trên tất cả các phân mảnh.
+
+![Đăng nhập](image.png)
+![Nhân viên](image-1.png)
+![Khách hàng](image-2.png)
+![Tạo tài khoản](image-3.png)
+![Giao dịch](image-4.png)
+![Mở tài khoản khách hàng](image-5.png)
+
+## Ưu điểm
+- Tìm được được cách chuyển nhân viên nếu có nhiều hơn 2 chi nhánh
+## Khuyết điểm
+- Tạo login không hợp lý. Đang xử lý theo cách lấy mã nhân viên làm tên login và username. (Vì nếu nhiều ứng dụng cũng làm như thế trên server thì ứng dụng nào tạo sau sẽ không tạo được login)
+- Sao kê đang bị lỗi phần hiển thị số dư
+- Sao kê khách hàng thì nên hiển theo từng chi nhánh, hết chi nhánh này rồi mới đến chi nhánh khác, không nên sắp xếp chung.
+
+
+`Toàn bộ sp ở trong file script.sql`
+## Tools
+Visual Studio 2019
+DevExpress 19.2.5 
+SQL Server 2022
+
+
+## Tham khảo lý thuyết
+[here](https://github.com/Phong-Kaster/PTIT-Co-So-Du-Lieu-Phan-Tan-Quan-Ly-Vat-Tu)
